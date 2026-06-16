@@ -5,13 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gabriel Amoedo | Cartão Digital</title>
     
-    <!-- Tailwind CSS (Framework de Estilização) -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts (Fonte Inter para um visual moderno e limpo) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     
-    <!-- FontAwesome (Ícones) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -57,12 +54,9 @@
 </head>
 <body class="min-h-screen flex items-center justify-center p-4 antialiased">
 
-    <!-- Container Principal do Cartão -->
     <main class="w-full max-w-sm mx-auto">
         
-        <!-- Cabeçalho / Perfil -->
         <header class="flex flex-col items-center mb-8 fade-in-up">
-            <!-- Foto de Perfil (usando um placeholder inteligente com as iniciais) -->
             <div class="relative mb-4">
                 <div class="w-28 h-28 rounded-full p-1 bg-gradient-to-tr from-blue-500 to-emerald-400">
                     <img 
@@ -81,10 +75,8 @@
             </div>
         </header>
 
-        <!-- Ações Principais -->
         <div class="space-y-4 w-full">
             
-            <!-- Botão Salvar Contato (Ação Primária em destaque) -->
             <button 
                 onclick="downloadVCard()"
                 class="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold py-4 px-6 rounded-2xl shadow-lg shadow-blue-500/30 transition-all active:scale-95 flex items-center justify-center fade-in-up delay-1"
@@ -93,10 +85,8 @@
                 Salvar na Agenda
             </button>
 
-            <!-- Grid de Links (Ações Secundárias) -->
             <div class="grid grid-cols-1 gap-3">
                 
-                <!-- Link WhatsApp -->
                 <a 
                     href="https://wa.me/5592982522812?text=Olá%20Gabriel!" 
                     target="_blank"
@@ -114,7 +104,6 @@
                     <i class="fa-solid fa-chevron-right text-slate-500 text-sm"></i>
                 </a>
 
-                <!-- Link Instagram -->
                 <a 
                     href="https://instagram.com/amoedogabriel_" 
                     target="_blank"
@@ -135,14 +124,12 @@
             </div>
         </div>
 
-        <!-- Rodapé -->
         <footer class="mt-12 text-center fade-in-up" style="animation-delay: 0.5s;">
             <p class="text-xs text-slate-500">Toque em "Salvar na Agenda" para adicionar aos seus contatos.</p>
         </footer>
 
     </main>
 
-    <!-- Script para gerar o Contato (vCard) -->
     <script>
         function downloadVCard() {
             // Dados do contato formatados no padrão vCard 3.0
@@ -156,22 +143,29 @@ URL:https://instagram.com/amoedogabriel_
 NOTE:Contato salvo via Cartão Digital NFC.
 END:VCARD`;
 
-            // Cria um arquivo temporário na memória do navegador
-            const blob = new Blob([vcard], { type: 'text/vcard' });
-            const url = URL.createObjectURL(blob);
-            
-            // Cria um link invisível e clica nele para forçar o download/abertura
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            a.download = 'Gabriel_Amoedo.vcf';
-            
-            document.body.appendChild(a);
-            a.click();
-            
-            // Limpa a memória
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(a);
+            // Detecta se é um dispositivo iOS (iPhone, iPad, iPod)
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+            if (isIOS) {
+                // Abordagem específica para iOS Safari reconhecer e abrir a agenda
+                window.location.href = "data:text/x-vcard;charset=utf-8," + encodeURIComponent(vcard);
+            } else {
+                // Abordagem Blob para Android e Desktop (faz o download limpo)
+                const blob = new Blob([vcard], { type: 'text/vcard' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'Gabriel_Amoedo.vcf';
+                
+                document.body.appendChild(a);
+                a.click();
+                
+                // Limpa a memória
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            }
         }
     </script>
 </body>
