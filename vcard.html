@@ -1,0 +1,181 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabriel Amoedo | Cartão Digital</title>
+    
+    <!-- Tailwind CSS (Framework de Estilização) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts (Fonte Inter para um visual moderno e limpo) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome (Ícones) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Fundo com gradiente escuro premium */
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+        }
+
+        /* Animação suave de entrada */
+        .fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Atrasos na animação para criar um efeito cascata */
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        
+        /* Efeito de vidro (Glassmorphism) para os botões */
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .glass-btn:hover, .glass-btn:active {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px) scale(0.98);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 antialiased">
+
+    <!-- Container Principal do Cartão -->
+    <main class="w-full max-w-sm mx-auto">
+        
+        <!-- Cabeçalho / Perfil -->
+        <header class="flex flex-col items-center mb-8 fade-in-up">
+            <!-- Foto de Perfil (usando um placeholder inteligente com as iniciais) -->
+            <div class="relative mb-4">
+                <div class="w-28 h-28 rounded-full p-1 bg-gradient-to-tr from-blue-500 to-emerald-400">
+                    <img 
+                        src="https://ui-avatars.com/api/?name=Gabriel+Amoedo&background=1e293b&color=fff&size=200&bold=true" 
+                        alt="Foto de Gabriel Amoedo" 
+                        class="w-full h-full rounded-full object-cover border-4 border-[#0f172a]"
+                    >
+                </div>
+            </div>
+            
+            <h1 class="text-2xl font-bold tracking-tight mb-1">Gabriel Amoedo</h1>
+            
+            <div class="flex items-center text-slate-400 text-sm">
+                <i class="fa-solid fa-location-dot mr-2 text-emerald-400"></i>
+                <span>Manaus, AM</span>
+            </div>
+        </header>
+
+        <!-- Ações Principais -->
+        <div class="space-y-4 w-full">
+            
+            <!-- Botão Salvar Contato (Ação Primária em destaque) -->
+            <button 
+                onclick="downloadVCard()"
+                class="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold py-4 px-6 rounded-2xl shadow-lg shadow-blue-500/30 transition-all active:scale-95 flex items-center justify-center fade-in-up delay-1"
+            >
+                <i class="fa-solid fa-address-book text-xl mr-3"></i>
+                Salvar na Agenda
+            </button>
+
+            <!-- Grid de Links (Ações Secundárias) -->
+            <div class="grid grid-cols-1 gap-3">
+                
+                <!-- Link WhatsApp -->
+                <a 
+                    href="https://wa.me/5592982522812?text=Olá%20Gabriel!" 
+                    target="_blank"
+                    class="glass-btn w-full flex items-center justify-between p-4 rounded-2xl fade-in-up delay-2"
+                >
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-[#25D366]/20 flex items-center justify-center mr-4 text-[#25D366]">
+                            <i class="fa-brands fa-whatsapp text-xl"></i>
+                        </div>
+                        <div class="text-left">
+                            <h2 class="font-semibold text-sm">WhatsApp</h2>
+                            <p class="text-xs text-slate-400">(92) 98252-2812</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-slate-500 text-sm"></i>
+                </a>
+
+                <!-- Link Instagram -->
+                <a 
+                    href="https://instagram.com/amoedogabriel_" 
+                    target="_blank"
+                    class="glass-btn w-full flex items-center justify-between p-4 rounded-2xl fade-in-up delay-3"
+                >
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-[#E1306C]/20 flex items-center justify-center mr-4 text-[#E1306C]">
+                            <i class="fa-brands fa-instagram text-xl"></i>
+                        </div>
+                        <div class="text-left">
+                            <h2 class="font-semibold text-sm">Instagram</h2>
+                            <p class="text-xs text-slate-400">@amoedogabriel_</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-slate-500 text-sm"></i>
+                </a>
+
+            </div>
+        </div>
+
+        <!-- Rodapé -->
+        <footer class="mt-12 text-center fade-in-up" style="animation-delay: 0.5s;">
+            <p class="text-xs text-slate-500">Toque em "Salvar na Agenda" para adicionar aos seus contatos.</p>
+        </footer>
+
+    </main>
+
+    <!-- Script para gerar o Contato (vCard) -->
+    <script>
+        function downloadVCard() {
+            // Dados do contato formatados no padrão vCard 3.0
+            const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:Gabriel Amoedo
+N:Amoedo;Gabriel;;;
+TEL;TYPE=CELL:+5592982522812
+ADR;TYPE=HOME:;;;Manaus;AM;;Brasil
+URL:https://instagram.com/amoedogabriel_
+NOTE:Contato salvo via Cartão Digital NFC.
+END:VCARD`;
+
+            // Cria um arquivo temporário na memória do navegador
+            const blob = new Blob([vcard], { type: 'text/vcard' });
+            const url = URL.createObjectURL(blob);
+            
+            // Cria um link invisível e clica nele para forçar o download/abertura
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'Gabriel_Amoedo.vcf';
+            
+            document.body.appendChild(a);
+            a.click();
+            
+            // Limpa a memória
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+    </script>
+</body>
+</html>
+
+```
